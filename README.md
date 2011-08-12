@@ -1,3 +1,5 @@
+**This is Franklin Chen's branch of answers to the JavaScript koans**.
+
 JavaScript Koans is an interactive learning environment that uses failing tests to introduce students to aspects of JavaScript in a logical sequence. 
 
 The inspiration for this project comes from the Edgecase Ruby Koans and the book 'Javascript: The Good Parts'.
