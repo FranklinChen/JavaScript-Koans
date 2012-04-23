@@ -56,7 +56,6 @@ test("constructor property", function () {
     var a = new A();
     var b = new B();
     equals(typeof(a.constructor), 'function', "what is the type of a's constructor?");
-    // CHEN These two fail in Chrome!!
     equals(a.constructor.name, 'A', "what is the name of a's constructor?");    
     equals(b.constructor.name, 'B', "what is the name of b's constructor?");    
 });
