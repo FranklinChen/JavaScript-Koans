@@ -1,5 +1,15 @@
 module("About Reflection (topics/about_reflection.js)");
 
+var A = function() {
+    this.aprop = "A";    
+};
+
+var B = function() {
+    this.bprop = "B";
+};
+
+B.prototype = new A();
+
 test("typeof", function() {
     equals(typeof({}), 'object', 'what is the type of an empty object?');
     equals(typeof('apple'), 'string', 'what is the type of a string?');
@@ -21,23 +31,34 @@ test("property enumeration", function() {
 });
 
 test("hasOwnProperty", function() {
-    // hasOwnProperty returns true if the parameter is a property directly on the object, 
-    // but not if it is a property accessible via the prototype chain.
+    var b = new B();
+
     var keys = [];
-    var fruits =  ['apple', 'orange'];
-    for(propertyName in fruits) {
+    for (propertyName in b) {
         keys.push(propertyName);
     }
-  // CHEN Clearly a bad idea to look at all properties of an array
-    ok(keys.equalTo(['0', '1', 'equalTo']), 'what are the properties of the array?');
+    // CHEN pick up inherited also, after own
+    equals(keys.length, 2, 'how many elements are in the keys array?');
+    ok(keys.equalTo(['bprop', 'aprop']), 'what are the properties of the array?');
 
+    // hasOwnProperty returns true if the parameter is a property directly on the object, 
+    // but not if it is a property accessible via the prototype chain.
     var ownKeys = [];
-    for(propertyName in fruits) {
-        if (fruits.hasOwnProperty(propertyName)) {
+    for(propertyName in b) {
+        if (b.hasOwnProperty(propertyName)) {
             ownKeys.push(propertyName);
         }
     }
-    ok(ownKeys.equalTo(['0', '1']), 'what are the own properties of the array?');
+    equals(ownKeys.length, 1, 'how many elements are in the ownKeys array?');
+    ok(ownKeys.equalTo(['bprop']), 'what are the own properties of the array?');
+});
+
+test("constructor property", function () {
+    var a = new A();
+    var b = new B();
+    equals(typeof(a.constructor), 'function', "what is the type of a's constructor?");
+    equals(a.constructor.name, 'A", "what is the name of a's constructor?");    
+    equals(b.constructor.name, 'B', "what is the name of b's constructor?");    
 });
 
 test("eval", function() {

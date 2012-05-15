@@ -25,13 +25,12 @@ test("self invoking functions", function() {
     (function(pv) {
         var secretValue = "password";
         equals(pv, 'shared', 'what is the value of pv?');
-        equals(typeof(secretValue), "string", "is secret value available in this context?");
-        equals(typeof(pv), "string", "is public value available in this context?");
+        equals(typeof(secretValue), "string", "is secretValue available in this context?");
+        equals(typeof(publicValue), "string", "is publicValue available in this context?");
     })(publicValue);
 
-  // CHEN Actually, secretValue could have been entirely global
-    equals(typeof(secretValue), "undefined", "is secret value available in this context?");
-    equals(typeof(publicValue), "string", "is public value available in this context?");
+    equals(typeof(secretValue), "undefined", "is secretValue available in this context?");
+    equals(typeof(publicValue), "string", "is publicValue available in this context?");
 });
 
 test("arguments array", function() {
