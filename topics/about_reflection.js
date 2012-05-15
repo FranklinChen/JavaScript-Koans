@@ -57,8 +57,9 @@ test("constructor property", function () {
     var a = new A();
     var b = new B();
     equals(typeof(a.constructor), 'function', "what is the type of a's constructor?");
-    equals(a.constructor.name, 'A", "what is the name of a's constructor?");    
-    equals(b.constructor.name, 'B', "what is the name of b's constructor?");    
+    // CHEN because defined with var, not named function
+    equals(a.constructor.name, '', "what is the name of a's constructor?");    
+    equals(b.constructor.name, '', "what is the name of b's constructor?");    
 });
 
 test("eval", function() {
